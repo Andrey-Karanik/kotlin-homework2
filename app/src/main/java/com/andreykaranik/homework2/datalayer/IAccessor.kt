@@ -1,6 +1,6 @@
 package com.andreykaranik.homework2.datalayer
 
-import com.andreykaranik.homework2.objects.Cat
+import com.andreykaranik.homework2.objects.Item
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,7 +12,7 @@ import retrofit2.http.Query
 interface IAccessor {
     @GET("/api/cats")
     @Headers("X-User-Agent: meow")
-    suspend fun getCats(@Query("skip") offset: Int, @Query("limit") limit: Int) : List<Cat>
+    suspend fun getCats(@Query("skip") offset: Int, @Query("limit") limit: Int) : List<Item>
 
     companion object {
         fun create(baseUrl: String): IAccessor {

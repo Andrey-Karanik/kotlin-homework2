@@ -23,9 +23,9 @@ class MainFragment : Fragment() {
 
     private val viewModel by viewModels<MainViewModel>()
 
-    private val catAdapter = CatAdapter()
+    private val itemAdapter = ItemAdapter()
 
-    private lateinit var textView : TextView
+    private lateinit var loadingCircle : View
     private lateinit var button : Button
 
     override fun onCreateView(
@@ -40,10 +40,10 @@ class MainFragment : Fragment() {
 
         view.findViewById<RecyclerView>(R.id.recycler).apply {
             layoutManager = GridLayoutManager(context, 2)
-            adapter = catAdapter
+            adapter = itemAdapter
         }
 
-        textView = view.findViewById(R.id.text)
+        loadingCircle = view.findViewById(R.id.loadingCircle)
         button = view.findViewById(R.id.button)
         button.setOnClickListener {
             getList()
@@ -55,15 +55,14 @@ class MainFragment : Fragment() {
     fun getList() {
         viewLifecycleOwner.lifecycleScope.launch {
             button.isVisible = false
-            textView.isVisible = true
-            textView.text = ServiceLocator.context.getString(R.string.text_view_text)
+            loadingCircle.isVisible = true
             delay(1000)
             try {
                 val list = withContext(Dispatchers.IO) { viewModel.getCats() }
-                catAdapter.submitList(list)
-                textView.isVisible = false
+                itemAdapter.submitList(list)
+                loadingCircle.isVisible = false
             } catch (error: Throwable) {
-                textView.isVisible = false
+                loadingCircle.isVisible = false
                 button.isVisible = true
                 error.printStackTrace()
             }

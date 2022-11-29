@@ -2,7 +2,7 @@ package com.andreykaranik.homework2
 
 import android.annotation.SuppressLint
 import android.content.Context
-import com.andreykaranik.homework2.businessLayer.CatProvider
+import com.andreykaranik.homework2.businessLayer.ItemProvider
 import com.andreykaranik.homework2.datalayer.IAccessor
 
 @SuppressLint("StaticFieldLeak")
@@ -15,7 +15,7 @@ object ServiceLocator {
         this.context = context.applicationContext
     }
 
-    fun provider(): CatProvider {
-        return CatProvider(accessor)
+    fun provider(): ItemProvider {
+        return ItemProvider(accessor)
     }
 }

@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintDimensionRatio="1:1"
 
-        android:scaleType="centerCrop"
+        android:scaleType="fitCenter"
         android:background="#ffffff"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
