@@ -15,7 +15,7 @@ interface IAccessor {
     suspend fun getCats(@Query("skip") offset: Int, @Query("limit") limit: Int) : List<Cat>
 
     companion object {
-        fun create(): IAccessor {
+        fun create(baseUrl: String): IAccessor {
             val loggingInterceptor = HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY
             }
@@ -26,7 +26,7 @@ interface IAccessor {
             val retrofit = Retrofit.Builder().apply {
                 client(client)
                 addConverterFactory(GsonConverterFactory.create())
-                baseUrl("https://cataas.com/")
+                baseUrl(baseUrl)
             }.build()
 
             return retrofit.create(IAccessor::class.java)
